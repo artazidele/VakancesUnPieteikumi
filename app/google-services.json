@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "370587484019",
+    "project_id": "vacancy-82b91",
+    "storage_bucket": "vacancy-82b91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370587484019:android:e6b42079506dc9d6b60f06",
+        "android_client_info": {
+          "package_name": "com.example.vakances"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370587484019-vk6crsetbqe2c20csdalemvicgihutiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1soJ3c9iaSuAQIISOO-pbfrw-4xFMJxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370587484019-vk6crsetbqe2c20csdalemvicgihutiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

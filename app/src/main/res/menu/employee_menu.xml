@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/all_vacancies"
+        android:title="Visas vakances" />
+    <item
+        android:id="@+id/my_applications"
+        android:title="Mani pieteikumi" />
+    <item
+        android:id="@+id/new_application"
+        android:title="Jauns pieteikums" />
+    <item
+        android:id="@+id/sign_out"
+        android:title="Iziet" />
+</menu>
