@@ -100,6 +100,13 @@ class AllVacanciesActivity : AppCompatActivity() {
         val id = uuid.toString()
         applicationId = id
         fileTextView = dialogView.findViewById<TextView>(R.id.file_path_tv)
+        dialogView.findViewById<TextView>(R.id.application_name).text = "Vārds: " + employee.name
+        dialogView.findViewById<TextView>(R.id.application_surname).text = "Uzvārds: " + employee.surname
+        dialogView.findViewById<TextView>(R.id.application_address).text = "Adrese: " + employee.address
+        dialogView.findViewById<TextView>(R.id.application_phone).text = "Telefona numurs: " + employee.phone
+        dialogView.findViewById<TextView>(R.id.application_email).text = "E-pasts: " + employee.email
+        dialogView.findViewById<TextView>(R.id.application_personal_code).text = "Personas kods: " + employee.personal_code
+        dialogView.findViewById<TextView>(R.id.application_vacancy_title).text = "Vakance: " + vacancy.title
         dialogView.findViewById<Button>(R.id.add_cv_button).setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
@@ -161,8 +168,16 @@ class AllVacanciesActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.sign_out -> signOut(this)
             R.id.my_applications -> toMyApplications(this)
+            R.id.my_profile -> toMyProfile(this)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    public fun toMyProfile(context: Context) {
+        val intent = Intent(context!!, EmployeeProfileActivity::class.java)
+        intent.putExtra("email", email)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     public fun toMyApplications(context: Context) {
@@ -181,7 +196,7 @@ class AllVacanciesActivity : AppCompatActivity() {
 
     private fun addCV(application: Application) {
         val storageRef = storage.reference
-        val documentRef = storageRef.child(applicationId)
+        val documentRef = storageRef.child(application.id)
         documentRef.putFile(uri!!)
             .addOnSuccessListener {
                 addApplication(application)

@@ -77,26 +77,19 @@ class EmployeeMainActivity : AppCompatActivity() {
             alertDialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.show_cv).setOnClickListener{
-            showCV(application, context)
+            showCV(application)
         }
     }
 
-    private fun showCV(application: Application, context: Context) {
+    private fun showCV(application: Application) {
         val ref = storage.reference
         ref.child(application.id).downloadUrl.addOnSuccessListener { uri ->
             openUrl(uri)
-//            SignUpActivity().showErrorDialog(
-//                "",
-//                "IR",
-//                this
-//            )
-//            val url = URL("http://somevaliddomain.com/somevalidfile")
-//            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
         }
     }
 
     private fun openUrl(uri: Uri) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()))
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri!!.toString()))
         startActivity(browserIntent)
     }
 
@@ -110,6 +103,7 @@ class EmployeeMainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.sign_out -> signOut(this)
             R.id.all_vacancies -> toAllApplications(this)
+            R.id.my_profile -> toMyProfile(this)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -121,9 +115,23 @@ class EmployeeMainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    public fun toMyProfile(context: Context) {
+        val intent = Intent(context!!, EmployeeProfileActivity::class.java)
+        intent.putExtra("email", email)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
     public fun signOut(context: Context) {
         Firebase.auth.signOut()
         val intent = Intent(context!!, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    public fun toProfileActivity(context: Context) {
+        val intent = Intent(context!!, EmployeeProfileActivity::class.java)
+        intent.putExtra("email", email)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }

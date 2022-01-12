@@ -102,11 +102,19 @@ class ManagerMainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.sign_out -> signOut(this)
             R.id.new_vacancy -> addVacancy(this, managerId)
+            R.id.my_profile -> toMyProfile(this)
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addVacancy(context: Context, managerId: String) {
+    public fun toMyProfile(context: Context) {
+        val intent = Intent(context!!, ManagerProfileActivity::class.java)
+        intent.putExtra("id", managerId)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    public fun addVacancy(context: Context, managerId: String) {
         val dialogView =
             LayoutInflater.from(context).inflate(R.layout.add_vacancy, null)
         val builder = AlertDialog.Builder(context)

@@ -4,6 +4,12 @@
         android:id="@+id/new_vacancy"
         android:title="Jauna vakance" />
     <item
+        android:id="@+id/my_profile"
+        android:title="Mans profils" />
+    <item
+        android:id="@+id/my_vacancies"
+        android:title="Manas vakances" />
+    <item
         android:id="@+id/sign_out"
         android:title="Iziet" />
 </menu>
