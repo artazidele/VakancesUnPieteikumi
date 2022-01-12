@@ -7,9 +7,6 @@
         android:id="@+id/my_applications"
         android:title="Mani pieteikumi" />
     <item
-        android:id="@+id/new_application"
-        android:title="Jauns pieteikums" />
-    <item
         android:id="@+id/sign_out"
         android:title="Iziet" />
 </menu>

@@ -35,10 +35,6 @@ class ManagerMainActivity : AppCompatActivity() {
         binding = ActivityManagerMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         managerId = intent.getStringExtra("id").toString()
-
-
-
-
         val query = db.collection("Vacancy")
             .whereEqualTo("managerId", managerId)
             .orderBy("title")
@@ -53,6 +49,7 @@ class ManagerMainActivity : AppCompatActivity() {
             }
             override fun onBindViewHolder(holder: VacancyViewHolder, position: Int, model: Vacancy) {
                 holder.itemView.findViewById<TextView>(R.id.vacancy_title).text = model.title
+                holder.itemView.findViewById<TextView>(R.id.vacancy_salary).text = model.salary
                 holder.itemView.setOnClickListener {
                     showVacancyApplications(model, this@ManagerMainActivity)
                 }
@@ -68,8 +65,8 @@ class ManagerMainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(context)
             .setView(dialogView)
         val alertDialog = builder.show()
-        val query = db.collection("Applications")
-            .whereEqualTo("id", vacancy.id)
+        val query = db.collection("Application")
+            .whereEqualTo("vacancy_id", vacancy.id)
             .orderBy("surname")
         val options =
             FirestoreRecyclerOptions.Builder<Application>().setQuery(query, Application::class.java)
@@ -82,7 +79,7 @@ class ManagerMainActivity : AppCompatActivity() {
             }
 
             override fun onBindViewHolder(holder: ApplicationViewHolder, position: Int, model: Application) {
-                holder.itemView.findViewById<TextView>(R.id.vacancy_title).text = model.name + model.surname
+                holder.itemView.findViewById<TextView>(R.id.vacancy_title).text = model.name + " " + model.surname
                 holder.itemView.setOnClickListener {
                     EmployeeMainActivity().showMoreAboutApplication(model, context)
                 }

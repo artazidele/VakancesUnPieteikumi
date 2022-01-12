@@ -2,6 +2,7 @@ package com.example.vakances.views
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -16,20 +17,25 @@ import com.example.vakances.databinding.ActivityMainBinding
 import com.example.vakances.model.Application
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.net.HttpURLConnection
+import java.net.URL
 
 class EmployeeMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEmployeeMainBinding
     private val db = FirebaseFirestore.getInstance()
     private lateinit var email: String
+    private val storage = Firebase.storage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEmployeeMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         email = intent.getStringExtra("email").toString()
-        val query = db.collection("Applications")
+        val query = db.collection("Application")
             .whereEqualTo("email", email)
             .orderBy("vacancy_title")
         val options =
@@ -59,12 +65,39 @@ class EmployeeMainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(context)
             .setView(dialogView)
         val alertDialog = builder.show()
-//        dialogView.findViewById<TextView>(R.id.title_text_view).text = cake.title
-//        dialogView.findViewById<TextView>(R.id.description_text_view).text = cake.description
-//        dialogView.findViewById<TextView>(R.id.ingredients_text_view).text = cake.ingredients
+        dialogView.findViewById<TextView>(R.id.application_name).text = "Vārds: " + application.name
+        dialogView.findViewById<TextView>(R.id.application_surname).text = "Uzvārds: " + application.surname
+        dialogView.findViewById<TextView>(R.id.application_address).text = "Adrese: " + application.address
+        dialogView.findViewById<TextView>(R.id.application_phone).text = "Telefona numurs: " + application.phone
+        dialogView.findViewById<TextView>(R.id.application_email).text = "E-pasts: " + application.email
+        dialogView.findViewById<TextView>(R.id.application_motivation_letter).text = "Motivācijas vēstule: \n" + application.motivation_letter
+        dialogView.findViewById<TextView>(R.id.application_personal_code).text = "Personas kods: " + application.personal_code
+        dialogView.findViewById<TextView>(R.id.application_vacancy_title).text = "Vakance: " + application.vacancy_title
         dialogView.findViewById<Button>(R.id.close_application_button).setOnClickListener {
             alertDialog.dismiss()
         }
+        dialogView.findViewById<Button>(R.id.show_cv).setOnClickListener{
+            showCV(application, context)
+        }
+    }
+
+    private fun showCV(application: Application, context: Context) {
+        val ref = storage.reference
+        ref.child(application.id).downloadUrl.addOnSuccessListener { uri ->
+            openUrl(uri)
+//            SignUpActivity().showErrorDialog(
+//                "",
+//                "IR",
+//                this
+//            )
+//            val url = URL("http://somevaliddomain.com/somevalidfile")
+//            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
+        }
+    }
+
+    private fun openUrl(uri: Uri) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()))
+        startActivity(browserIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -82,7 +115,7 @@ class EmployeeMainActivity : AppCompatActivity() {
     }
 
     public fun toAllApplications(context: Context) {
-        val intent = Intent(context!!, MainActivity::class.java)
+        val intent = Intent(context!!, AllVacanciesActivity::class.java)
         intent.putExtra("email", email)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

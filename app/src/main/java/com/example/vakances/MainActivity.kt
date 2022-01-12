@@ -57,32 +57,11 @@ class MainActivity : AppCompatActivity() {
                     Log.v(TAG, message)
                     SignUpActivity().showErrorDialog(
                         "",
-                        message,//"Lūdzu, pārliecinieties, ka ievadījāt pareizu e-pastu un paroli!",
+                        "Lūdzu, pārliecinieties, ka ievadījāt pareizu e-pastu un paroli!",
                         this
                     )
                 }
             }
-//        auth.signInWithEmailAndPassword(email, password)
-////        logInAs(email, context)
-////            .addOnSuccessListener {
-//////                logInAs(email, context)
-////            }
-////            .addOnFailureListener {
-////
-////            }
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    logInAs(email, context)
-//                }
-//                else {
-//                    val message = ""
-//                    SignUpActivity().showErrorDialog(
-//                        "",
-//                        "Lūdzu, pārliecinieties, ka ievadījāt pareizu e-pastu un paroli!",
-//                        this
-//                    )
-//                }
-//            }
     }
 
     private fun logInAs(email: String, context: Context){

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <Button
         android:layout_width="wrap_content"
@@ -9,5 +10,68 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/close_application_button"/>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_name"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/close_application_button"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_surname"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_name"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_personal_code"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_surname"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_email"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_personal_code"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_phone"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_email"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_address"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_phone"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_motivation_letter"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_address"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_vacancy_title"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/application_motivation_letter"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/application_vacancy_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Apskatīt CV"
+        android:id="@+id/show_cv"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
